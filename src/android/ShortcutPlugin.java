@@ -7,6 +7,10 @@ import org.apache.cordova.CordovaPlugin;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
+import android.util.Base64;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.*;
 import android.content.Intent;
 import android.content.Context;
 import android.os.Parcelable;
@@ -29,8 +33,10 @@ public class ShortcutPlugin extends CordovaPlugin {
 
 				// set param defaults
 				String shortcuttext = arg_object.getString("shortcuttext");
-				String icon = arg_object.getString("icon");
-
+				String iconBase64 = null;
+				if( arg_object.has("icon")){
+				  iconBase64 = arg_object.getString("icon");
+        }
 
 				Context context = this.cordova.getActivity()
 						.getApplicationContext();
@@ -49,16 +55,14 @@ public class ShortcutPlugin extends CordovaPlugin {
 						arg_object.getString("shortcuttext"));
 
 				// Get Icon
-				if(isNull(icon)){
+				if(iconBase64 == null){
 					ResolveInfo ri = pm.resolveActivity(i, 0);
 					int iconId = ri.activityInfo.applicationInfo.icon;
 					Parcelable icon = Intent.ShortcutIconResource.fromContext(
 						context, iconId);
 		        	shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
 				} else {
-					Drawable iconDrawable = decodeBase64(icon);
-					BitmapDrawable bd = (BitmapDrawable) iconDrawable;
-					shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bd.getBitmap());
+					shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON, decodeBase64(iconBase64));
 				}
 
 				shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, i);
