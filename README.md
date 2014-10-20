@@ -60,4 +60,14 @@ Note: This plugin is for phonegap 3.x
   </script>
 ```
 
+  If you want to create a custom icon you can pass an object
+```
+  <script>
+     window.plugins.Shortcut.CreateShortcut({
+     	text: "Text to show"
+     	icon: "iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADi .... BgCAYAAADi"  // base64 String
+     }, successfunc, failfunc );
+  </script>
+```
+
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jorgecis/shortcutplugin/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
