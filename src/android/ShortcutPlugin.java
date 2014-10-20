@@ -32,7 +32,7 @@ public class ShortcutPlugin extends CordovaPlugin {
 				JSONObject arg_object = args.getJSONObject(0);
 
 				// set param defaults
-				String shortcuttext = arg_object.getString("shortcuttext");
+				String shortcuttext = arg_object.getString("text");
 				String iconBase64 = null;
 				if( arg_object.has("icon")){
 				  iconBase64 = arg_object.getString("icon");
@@ -52,7 +52,7 @@ public class ShortcutPlugin extends CordovaPlugin {
 						"com.android.launcher.action.INSTALL_SHORTCUT");
 				shortcutintent.putExtra("duplicate", false);
 				shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_NAME,
-						arg_object.getString("shortcuttext"));
+						shortcuttext);
 
 				// Get Icon
 				if(iconBase64 == null){
@@ -62,6 +62,9 @@ public class ShortcutPlugin extends CordovaPlugin {
 						context, iconId);
 		        	shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
 				} else {
+				  //Bitmap bmpIcon = decodeBase64(iconBase64);
+				  //Bitmap scaledBitmap = Bitmap.createScaledBitmap(bmpIcon, 128, 128, true);
+          //shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON, scaledBitmap);
 					shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON, decodeBase64(iconBase64));
 				}
 

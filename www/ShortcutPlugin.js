@@ -8,12 +8,12 @@ ShortcutPlugin.prototype.CreateShortcut = function (data, successCallback, error
   // to provide backwards compatibility
   if (typeof data === 'string') {
     data = {
-      shortcuttext: data
+      text: data
     };
   }
 
-  if (typeof data !== 'object' || typeof data.shortcuttext !== 'string') {
-    errorCallback('required shortcuttext is not set or not a string');
+  if (typeof data !== 'object' || typeof data.text !== 'string') {
+    errorCallback('required text is not set or not a string');
     return;
   }
 
