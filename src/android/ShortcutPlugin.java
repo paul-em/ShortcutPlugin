@@ -2,6 +2,7 @@
 
 package com.plugins.shortcut;
 
+import com.w3pin.browser.Browser;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONObject;
@@ -34,17 +35,30 @@ public class ShortcutPlugin extends CordovaPlugin {
 				// set param defaults
 				String shortcuttext = arg_object.getString("text");
 				String iconBase64 = null;
+				String activityClass = null;
+				String activityPackage = null;
 				if( arg_object.has("icon")){
 				  iconBase64 = arg_object.getString("icon");
         }
+
+        if( arg_object.has("activityClass") & arg_object.has("activityPackage")){
+          activityClass = arg_object.getString("activityClass");
+          activityPackage = arg_object.getString("activityPackage");
+        }
+
 
 				Context context = this.cordova.getActivity()
 						.getApplicationContext();
 				PackageManager pm = context.getPackageManager();
 
 				Intent i = new Intent();
-				i.setClassName(this.cordova.getActivity().getPackageName(),
-						this.cordova.getActivity().getClass().getName());
+				if(activityClass == null){
+				  i.setClassName(this.cordova.getActivity().getPackageName(),
+            this.cordova.getActivity().getClass().getName());
+				} else {
+				  i.setClassName(activityPackage,activityClass);
+				}
+
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
