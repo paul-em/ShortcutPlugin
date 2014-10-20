@@ -36,6 +36,8 @@ public class ShortcutPlugin extends CordovaPlugin {
                 String iconBase64 = null;
                 String activityClass = null;
                 String activityPackage = null;
+                String extraSubject = null;
+
                 if (arg_object.has("icon")) {
                     iconBase64 = arg_object.getString("icon");
                 }
@@ -45,6 +47,9 @@ public class ShortcutPlugin extends CordovaPlugin {
                     activityPackage = arg_object.getString("activityPackage");
                 }
 
+ 				if (arg_object.has("extraSubject")) {
+                    extraSubject = arg_object.getString("extraSubject");
+                }
 
                 Context context = this.cordova.getActivity()
                         .getApplicationContext();
@@ -60,7 +65,10 @@ public class ShortcutPlugin extends CordovaPlugin {
 
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.putExtra(Intent.EXTRA_SUBJECT, "ShortcutPluginLaunch");
+
+                if(extraSubject != null){
+                	i.putExtra(Intent.EXTRA_SUBJECT, extraSubject);
+				}
 
                 Intent shortcutintent = new Intent(
                         "com.android.launcher.action.INSTALL_SHORTCUT");
