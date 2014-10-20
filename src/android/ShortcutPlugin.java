@@ -2,7 +2,6 @@
 
 package com.plugins.shortcut;
 
-import com.w3pin.browser.Browser;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONObject;
