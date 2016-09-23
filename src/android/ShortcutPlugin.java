@@ -31,6 +31,8 @@ public class ShortcutPlugin extends CordovaPlugin {
 
 		Intent i = new Intent();
 		i.setClassName(this.cordova.getActivity().getPackageName(), this.cordova.getActivity().getClass().getName());
+		i.setAction(Intent.ACTION_MAIN);
+		i.addCategory(Intent.CATEGORY_LAUNCHER);
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -55,6 +57,8 @@ public class ShortcutPlugin extends CordovaPlugin {
 
 		Intent i = new Intent();
 		i.setClassName(this.cordova.getActivity().getPackageName(), this.cordova.getActivity().getClass().getName());
+		i.setAction(Intent.ACTION_MAIN);
+		i.addCategory(Intent.CATEGORY_LAUNCHER);
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
